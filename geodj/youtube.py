@@ -1,4 +1,5 @@
 from gdata.youtube.service import YouTubeService, YouTubeVideoQuery
+from django.utils.encoding import smart_str
 
 class YoutubeMusic:
     def __init__(self):
@@ -17,9 +18,10 @@ class YoutubeMusic:
                 continue
             results.append({
                 'url': entry.media.player.url,
+                'title': smart_str(entry.media.title.text),
                 'duration': int(entry.media.duration.seconds),
             })
-        return results
+        return {'artist': smart_str(artist), 'results': results}
 
     def is_valid_entry(self, artist, entry):
         duration = int(entry.media.duration.seconds)
@@ -27,6 +29,6 @@ class YoutubeMusic:
             return False
         if duration < (2 * 60) or duration > (9 * 60):
             return False
-        if artist.lower() not in entry.media.title.text.lower():
+        if smart_str(artist).lower() not in smart_str(entry.media.title.text).lower():
             return False
         return True
