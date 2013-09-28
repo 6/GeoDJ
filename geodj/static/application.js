@@ -34,6 +34,10 @@ var Countries = Backbone.Collection.extend({
 var PlayerView = Backbone.View.extend({
   el: '.player',
 
+  events: {
+    'click .next-song': 'next'
+  },
+
   initialize: function() {
     this.$countryTitle = this.$el.find(".country-title");
     this.$artistTitle = this.$el.find(".artist-title");
