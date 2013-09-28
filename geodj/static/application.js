@@ -1,3 +1,9 @@
+var GlobalState = Backbone.Model.extend({
+  defaults: {
+    nextDisabled: false
+  }
+});
+
 var Country = Backbone.Model.extend({
   defaults: {
     selected: false
@@ -52,9 +58,30 @@ var Videos = Backbone.Collection.extend({
   model: Video
 });
 
+var KeyboardShortcutsView = Backbone.View.extend({
+  el: 'body',
+
+  events: {
+    'keydown': 'onKeyDown'
+  },
+
+  Keys: {
+    RIGHT_ARROW: 39
+  },
+
+  onKeyDown: function(e) {
+    switch(e.keyCode) {
+      case this.Keys.RIGHT_ARROW:
+        if(!globalState.get('nextDisabled')) {
+          countries.selectNextModel();
+          break;
+        }
+    }
+  }
+});
+
 var PlayerView = Backbone.View.extend({
   el: '.player',
-  nextButtonDisabled: false,
 
   events: {
     'click .next-song': 'next'
@@ -71,6 +98,7 @@ var PlayerView = Backbone.View.extend({
   },
 
   play: function() {
+    this.disableNextButton();
     var country = countries.selected();
     this.$countryTitle.text(country.get('fields')['name']);
     this.$artistTitle.text("");
@@ -85,18 +113,17 @@ var PlayerView = Backbone.View.extend({
   },
 
   next: function() {
-    if (this.nextButtonDisabled) return;
-    this.disabledNextButton();
+    if (globalState.get('nextDisabled')) return;
     countries.selectNextModel();
   },
 
-  disabledNextButton: function() {
-    this.nextButtonDisabled = true;
+  disableNextButton: function() {
+    globalState.set('nextDisabled', true);
     this.$nextButton.prop('disabled', true);
   },
 
   enableNextButton: function() {
-    this.nextButtonDisabled = false;
+    globalState.set('nextDisabled', false);
     this.$nextButton.prop('disabled', false);
   }
 });

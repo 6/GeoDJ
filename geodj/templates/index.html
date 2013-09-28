@@ -6,9 +6,11 @@
 </div>
 <script>
   $(function() {
+    window.globalState = new GlobalState();
     window.countries = new Countries().reset(JSON.parse("{{ countries | escapejs }}"));
     window.player = new PlayerView();
     player.play();
+    new KeyboardShortcutsView();
   });
 </script>
 {% endblock %}
