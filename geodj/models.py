@@ -1,4 +1,5 @@
 from django.db import models
+import random
 
 class Country(models.Model):
     name = models.TextField()
@@ -6,6 +7,9 @@ class Country(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def random_artist(self):
+        return random.choice(self.artist_set.all())
 
     @staticmethod
     def with_artists():
