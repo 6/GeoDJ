@@ -1,4 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>index page goes here</h1>
+<script>
+  $(function() {
+    window.countries = new Countries(JSON.parse("{{ countries | escapejs }}"));
+  });
+</script>
 {% endblock %}
