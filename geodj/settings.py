@@ -1,4 +1,7 @@
-# Django settings for geodj project.
+import os
+# Override these on production env
+os.environ.setdefault("APP_ENV", "development")
+os.environ.setdefault("SECRET_KEY", "^uhrm48x9y=1f&+$bg=oc(#23mp0*g5k%8+si9tdz7&4_xk&lf")
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -83,7 +86,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '^uhrm48x9y=1f&+$bg=oc(#23mp0*g5k%8+si9tdz7&4_xk&lf'
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
