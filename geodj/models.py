@@ -15,3 +15,6 @@ class Artist(models.Model):
     name = models.TextField()
     mbid = models.TextField(unique=True)
     country = models.ForeignKey(Country)
+
+    def __unicode__(self):
+        return self.name
