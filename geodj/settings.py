@@ -24,7 +24,7 @@ else:
         'NAME': 'geodj_development',
         'USER': '',
         'PASSWORD': '',
-        'HOST': '',
+        'HOST': 'localhost',
         'PORT': '',
     }
 
