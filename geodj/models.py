@@ -13,6 +13,9 @@ class Country(models.Model):
     def random_artist(self):
         return random.choice(self.artist_set.all())
 
+    def random_artists(self):
+        return self.artist_set.all().order_by('?')
+
     @staticmethod
     def with_artists():
         return Country.objects.annotate(number_of_artists=models.Count('artist')).filter(number_of_artists__gte=1)

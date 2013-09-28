@@ -13,5 +13,9 @@ def index(request):
 
 def videos(request, country_id):
     country = Country.objects.get(pk=country_id)
-    videos = country.random_artist().youtube_videos()
+    videos = None
+    for artist in country.random_artists():
+        videos = artist.youtube_videos()
+        if len(videos['results']) > 0:
+            break
     return HttpResponse(simplejson.dumps(videos), mimetype='application/json')
