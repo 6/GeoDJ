@@ -4,8 +4,12 @@ os.environ.setdefault("APP_ENV", "development")
 os.environ.setdefault("SECRET_KEY", "^uhrm48x9y=1f&+$bg=oc(#23mp0*g5k%8+si9tdz7&4_xk&lf")
 
 if os.environ["APP_ENV"] == "development":
-    import secrets
-    os.environ.setdefault("LASTFM_API_KEY", secrets.LASTFM_API_KEY)
+    try:
+        # Add secret ENV varibales for development (e.g. API keys) to secrets.py
+        import secrets
+        os.environ.setdefault("LASTFM_API_KEY", secrets.LASTFM_API_KEY)
+    except:
+        pass
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
