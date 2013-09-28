@@ -1,9 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>index page goes here</h1>
+<div class='player'>
+  <h1><span class='country-title'></span> - <span class='artist-title'></span></h1>
+</div>
 <script>
   $(function() {
-    window.countries = new Countries(JSON.parse("{{ countries | escapejs }}"));
+    window.countries = new Countries().reset(JSON.parse("{{ countries | escapejs }}"));
+    window.player = new PlayerView();
+    player.play();
   });
 </script>
 {% endblock %}
