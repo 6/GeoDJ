@@ -40,7 +40,13 @@ var Countries = Backbone.Collection.extend({
   }
 });
 
-var Video = Backbone.Model.extend({});
+var Video = Backbone.Model.extend({
+  videoId: function() {
+    var vid = this.get('url').split('v=')[1];
+    if (vid.indexOf("&") === -1) return vid;
+    else return vid.split("&")[0];
+  }
+});
 
 var Videos = Backbone.Collection.extend({
   model: Video
@@ -71,7 +77,7 @@ var PlayerView = Backbone.View.extend({
 
     var _this = this;
     country.fetchVideos(function(artist, videos) {
-      var video = videos.shuffle()[0];
+      var video = videos.first();
       _this.$artistTitle.text(artist);
       _this.enableNextButton();
     });

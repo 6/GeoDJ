@@ -9,7 +9,7 @@ class YoutubeMusic:
     def search(self, artist):
         query = YouTubeVideoQuery()
         query.vq = artist
-        query.orderby = 'viewCount'
+        query.orderby = 'relevance'
         query.racy = 'exclude'
         query.categories.append("/Music")
         feed = self.service.YouTubeQuery(query)
