@@ -48,12 +48,14 @@ var Videos = Backbone.Collection.extend({
 
 var PlayerView = Backbone.View.extend({
   el: '.player',
+  nextButtonDisabled: false,
 
   events: {
     'click .next-song': 'next'
   },
 
   initialize: function() {
+    this.$nextButton = this.$el.find(".next-button");
     this.$countryTitle = this.$el.find(".country-title");
     this.$artistTitle = this.$el.find(".artist-title");
     var _this = this;
@@ -71,10 +73,23 @@ var PlayerView = Backbone.View.extend({
     country.fetchVideos(function(artist, videos) {
       var video = videos.shuffle()[0];
       _this.$artistTitle.text(artist);
+      _this.enableNextButton();
     });
   },
 
   next: function() {
+    if (this.nextButtonDisabled) return;
+    this.disabledNextButton();
     countries.selectNextModel();
+  },
+
+  disabledNextButton: function() {
+    this.nextButtonDisabled = true;
+    this.$nextButton.prop('disabled', true);
+  },
+
+  enableNextButton: function() {
+    this.nextButtonDisabled = false;
+    this.$nextButton.prop('disabled', false);
   }
 });
