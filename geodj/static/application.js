@@ -20,12 +20,7 @@ var Countries = Backbone.Collection.extend({
   },
 
   selectNextModel: function() {
-    console.l
     this.selectModel(this.indexOf(this.selected()) + 1);
-  },
-
-  selectPreviousModel: function() {
-    this.selectModel(this.indexOf(this.selected()) - 1);
   },
 
   selectModel: function(index) {
@@ -54,9 +49,5 @@ var PlayerView = Backbone.View.extend({
 
   next: function() {
     countries.selectNextModel();
-  },
-
-  previous: function() {
-    countries.selectPreviousModel();
   }
 });
