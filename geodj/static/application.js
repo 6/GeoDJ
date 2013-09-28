@@ -1,6 +1,15 @@
 var Country = Backbone.Model.extend({
   defaults: {
     selected: false
+  },
+
+  fetchVideos: function (complete) {
+    $.ajax({
+      url: "/countries/" + this.get('pk') + '/videos',
+      success: function(json) {
+        complete(new Videos(json));
+      }
+    });
   }
 });
 
@@ -31,6 +40,12 @@ var Countries = Backbone.Collection.extend({
   }
 });
 
+var Video = Backbone.Model.extend({});
+
+var Videos = Backbone.Collection.extend({
+  model: Video
+});
+
 var PlayerView = Backbone.View.extend({
   el: '.player',
 
@@ -48,7 +63,15 @@ var PlayerView = Backbone.View.extend({
   },
 
   play: function() {
-    this.$countryTitle.text(countries.selected().get('fields')['name']);
+    var country = countries.selected();
+    this.$countryTitle.text(country.get('fields')['name']);
+    this.$artistTitle.text("");
+
+    var _this = this;
+    country.fetchVideos(function(videos) {
+      var video = videos.shuffle()[0];
+      _this.$artistTitle.text(video.get("artist"));
+    });
   },
 
   next: function() {
