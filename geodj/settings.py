@@ -3,7 +3,7 @@ import os
 os.environ.setdefault("APP_ENV", "development")
 os.environ.setdefault("SECRET_KEY", "^uhrm48x9y=1f&+$bg=oc(#23mp0*g5k%8+si9tdz7&4_xk&lf")
 
-DEBUG = True
+DEBUG = os.environ['APP_ENV'] != 'production'
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
