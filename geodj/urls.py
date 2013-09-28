@@ -6,10 +6,5 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
-    # Examples:
-    # url(r'^$', 'geodj.views.home', name='home'),
-    # url(r'^geodj/', include('geodj.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^countries/(?P<country_id>\d+)/videos$', views.videos, name='videos'),
 )

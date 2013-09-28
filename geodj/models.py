@@ -1,5 +1,7 @@
 from django.db import models
+from django.utils.encoding import smart_str
 import random
+from geodj.youtube import YoutubeMusic
 
 class Country(models.Model):
     name = models.TextField()
@@ -22,3 +24,6 @@ class Artist(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def youtube_videos(self):
+        return YoutubeMusic().search(smart_str(self.name))

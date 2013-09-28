@@ -21,7 +21,7 @@ class YoutubeMusic:
                 'title': smart_str(entry.media.title.text),
                 'duration': int(entry.media.duration.seconds),
             })
-        return {'artist': smart_str(artist), 'results': results}
+        return {'artist': artist, 'results': results}
 
     def is_valid_entry(self, artist, entry):
         duration = int(entry.media.duration.seconds)
@@ -29,6 +29,6 @@ class YoutubeMusic:
             return False
         if duration < (2 * 60) or duration > (9 * 60):
             return False
-        if smart_str(artist).lower() not in smart_str(entry.media.title.text).lower():
+        if artist.lower() not in smart_str(entry.media.title.text).lower():
             return False
         return True
