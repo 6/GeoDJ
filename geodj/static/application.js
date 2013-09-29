@@ -1,7 +1,27 @@
 var GlobalState = Backbone.Model.extend({
   defaults: {
     nextDisabled: false,
-    continent: 'all'
+    continent: 'all',
+    history: [],
+    historyIndex: -1
+  },
+
+  pushHistory: function(data) {
+    this.get('history').push(data);
+    this.set('historyIndex', this.get('historyIndex') + 1);
+  },
+
+  hasPreviousHistory: function() {
+    return this.get('historyIndex') && this.get('historyIndex') >= 1;
+  },
+
+  hasNextHistory: function() {
+    return (this.get('historyIndex') + 1) <= (this.get('history').length - 1);
+  },
+
+  resetHistory: function() {
+    this.set('historyIndex', -1);
+    this.set('history', []);
   }
 });
 
@@ -163,6 +183,7 @@ var PlayerView = Backbone.View.extend({
 
       ytPlayer.clearVideo();
       ytPlayer.loadVideoById(video.videoId(), 0, "hd720");
+      globalState.pushHistory({video: video, continent: globalState.get('continent')});
     });
   },
 
