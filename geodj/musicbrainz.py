@@ -1,4 +1,5 @@
 import musicbrainzngs
+from geodj.genre_parser import GenreParser
 
 class MusicBrainz:
     def __init__(self):
@@ -26,3 +27,13 @@ class MusicBrainz:
         if 'artist' in result and 'country' in result['artist']:
             return result['artist']['country'] == country_code
         return False
+
+    def get_artist_genres(self, musicbrainz_id):
+        genres = []
+        result = self.get_artist(musicbrainz_id, includes=['tags'])
+        if result is not None and 'tag-list' in result['artist']:
+            for tag in result['artist']['tag-list']:
+                genre = GenreParser.parse(tag['name'])
+                if genre is not None:
+                    genres.append(genre)
+        return set(genres)
