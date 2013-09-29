@@ -131,6 +131,8 @@ var PlayerView = Backbone.View.extend({
         ytPlayer.seekTo(parseInt(ui.value));
       }
     });
+    // Disable arrow key control of slider
+    this.$slider.off('keydown');
 
     setInterval(function() {
       if(!ytPlayer || !ytPlayer.getCurrentTime) return;
