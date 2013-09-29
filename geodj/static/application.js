@@ -141,7 +141,7 @@ window.onYouTubeIframeAPIReady = function() {
     new KeyboardShortcutsView();
 
     ytPlayer.addEventListener("onStateChange", function(state) {
-      ytPlayer.onPlayStateChange(state['data']);
+      playerView.onPlayStateChange(state['data']);
     });
   };
 
