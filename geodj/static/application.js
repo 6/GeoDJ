@@ -66,16 +66,14 @@ var KeyboardShortcutsView = Backbone.View.extend({
   },
 
   Keys: {
+    SPACEBAR: 32,
     RIGHT_ARROW: 39
   },
 
   onKeyDown: function(e) {
     switch(e.keyCode) {
-      case this.Keys.RIGHT_ARROW:
-        if(!globalState.get('nextDisabled')) {
-          countries.selectNextModel();
-          break;
-        }
+      case this.Keys.RIGHT_ARROW: playerView.next(); break;
+      case this.Keys.SPACEBAR: playerView.togglePlay(); break;
     }
   }
 });
