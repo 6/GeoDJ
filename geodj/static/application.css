@@ -16,6 +16,14 @@ html, body {
   bottom: 0;
   top: 0;
   z-index: 1000;
+  overflow: hidden;
+}
+
+#yt-player {
+  display: block;
+  top: -200px;
+  left: -300px;
+  position: relative;
 }
 
 .header {
