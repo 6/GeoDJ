@@ -84,10 +84,12 @@ var PlayerView = Backbone.View.extend({
   el: '.player',
 
   events: {
+    'click .toggle-play': 'togglePlay',
     'click .next-song': 'next'
   },
 
   initialize: function() {
+    this.$togglePlayButton = this.$el.find(".toggle-play");
     this.$nextButton = this.$el.find(".next-button");
     this.$countryTitle = this.$el.find(".country-title");
     this.$artistTitle = this.$el.find(".artist-title");
@@ -113,6 +115,17 @@ var PlayerView = Backbone.View.extend({
       ytPlayer.clearVideo();
       ytPlayer.loadVideoById(video.videoId(), 0, "hd720");
     });
+  },
+
+  togglePlay: function() {
+    if(ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
+      ytPlayer.pauseVideo();
+      this.$togglePlayButton.text("Play");
+    }
+    else {
+      ytPlayer.playVideo();
+      this.$togglePlayButton.text("Pause");
+    }
   },
 
   next: function() {
