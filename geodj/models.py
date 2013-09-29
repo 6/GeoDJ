@@ -6,6 +6,7 @@ from geodj.youtube import YoutubeMusic
 class Country(models.Model):
     name = models.TextField()
     iso_code = models.CharField(max_length=2, unique=True)
+    continent = models.TextField()
 
     def __unicode__(self):
         return self.name
