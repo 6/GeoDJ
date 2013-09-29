@@ -37,6 +37,6 @@ class YoutubeMusic:
             return False
         if artist.lower() not in title:
             return False
-        if re.search("\b(concert|cover)\b", title):
+        if re.search(r"\b(concert|cover)\b", title):
             return False
         return True
