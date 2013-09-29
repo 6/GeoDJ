@@ -177,12 +177,12 @@ window.onYouTubeIframeAPIReady = function() {
   window.ytPlayer = null;
   window.playerView = new PlayerView();
 
-  onWindowResize = function() {
+  var onWindowResize = function() {
     $("#yt-player").height($(window).height() + 400);
     $("#yt-player").width($(window).width() + 600);
   };
 
-  onPlayerReady = function() {
+  var onPlayerReady = function() {
     playerView.play();
     new KeyboardShortcutsView();
     onWindowResize();
