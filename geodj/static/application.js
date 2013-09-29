@@ -105,7 +105,7 @@ var PlayerView = Backbone.View.extend({
 
   events: {
     'click .toggle-play': 'togglePlay',
-    'click .next-song': 'next',
+    'click .next-song': 'next'
   },
 
   initialize: function() {
