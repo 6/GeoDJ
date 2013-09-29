@@ -188,6 +188,7 @@ window.onYouTubeIframeAPIReady = function() {
     onWindowResize();
     $(window).on('resize', onWindowResize);
 
+    ytPlayer.setVolume(50);
     ytPlayer.addEventListener("onStateChange", function(state) {
       playerView.onPlayStateChange(state['data']);
     });
