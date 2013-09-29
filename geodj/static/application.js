@@ -110,6 +110,7 @@ var PlayerView = Backbone.View.extend({
       if(!video) window.location.reload();
       _this.$artistTitle.text(artist);
       _this.enableNextButton();
+      _this.$togglePlayButton.removeClass("glyphicon-play-circle").addClass("glyphicon-pause");
 
       ytPlayer.clearVideo();
       ytPlayer.loadVideoById(video.videoId(), 0, "hd720");
@@ -119,11 +120,11 @@ var PlayerView = Backbone.View.extend({
   togglePlay: function() {
     if(ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
       ytPlayer.pauseVideo();
-      this.$togglePlayButton.text("Play");
+      this.$togglePlayButton.removeClass("glyphicon-pause").addClass("glyphicon-play-circle");
     }
     else {
       ytPlayer.playVideo();
-      this.$togglePlayButton.text("Pause");
+      this.$togglePlayButton.removeClass("glyphicon-play-circle").addClass("glyphicon-pause");
     }
   },
 

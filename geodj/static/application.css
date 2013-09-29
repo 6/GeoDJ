@@ -47,6 +47,18 @@ html, body {
   float: left;
 }
 
+.toggle-play {
+  font-size: 40px;
+  float: left;
+  display: block;
+  line-height: 74px;
+  padding: 0 8px;
+  cursor: pointer;
+}
+.artist-title {
+  float: left;
+}
+
 .next-song {
   float: right;
   margin: 20px 20px 0 0;
