@@ -17,8 +17,8 @@ class Country(models.Model):
         return self.artist_set.all().order_by('?')
 
     @staticmethod
-    def with_artists():
-        return Country.objects.annotate(number_of_artists=models.Count('artist')).filter(number_of_artists__gte=1)
+    def with_artists(min=1):
+        return Country.objects.annotate(number_of_artists=models.Count('artist')).filter(number_of_artists__gte=min)
 
 class Artist(models.Model):
     name = models.TextField()

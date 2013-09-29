@@ -5,7 +5,7 @@ from django.utils import simplejson
 from models import Country, Artist
 
 def index(request):
-    countries = Country.with_artists().order_by('?')
+    countries = Country.with_artists(min=3).order_by('?')
     context = {
         'countries': serializers.serialize("json", countries),
     }
