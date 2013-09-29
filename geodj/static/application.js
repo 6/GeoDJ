@@ -13,7 +13,7 @@ var Country = Backbone.Model.extend({
     $.ajax({
       url: "/countries/" + this.get('pk') + '/videos',
       success: function(json) {
-        if(!json) playerView.handleNoVideos();
+        if(!json) return playerView.handleNoVideos();
         complete(json['artist'], new Videos(json['results']));
       }
     });
@@ -125,7 +125,7 @@ var PlayerView = Backbone.View.extend({
     var _this = this;
     country.fetchVideos(function(artist, videos) {
       var video = videos.shuffle()[0];
-      if(!video) _this.handleNoVideos();
+      if(!video) return _this.handleNoVideos();
       _this.$artistTitle.text(artist);
       _this.enableNextButton();
       _this.$slider.slider("option", {
@@ -139,7 +139,8 @@ var PlayerView = Backbone.View.extend({
   },
 
   handleNoVideos: function() {
-    window.location.reload();
+    this.enableNextButton();
+    this.next();
   },
 
   togglePlay: function() {
