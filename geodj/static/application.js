@@ -188,7 +188,8 @@ var OptionsView = Backbone.View.extend({
 
   events: {
     "click [rel='keyboard-shortcuts']": "openShortcutsModal",
-    "click [rel='about']": "openAboutModal"
+    "click [rel='about']": "openAboutModal",
+    "click [rel='continent']": "changeContinent"
   },
 
   openShortcutsModal: function(e) {
@@ -199,6 +200,16 @@ var OptionsView = Backbone.View.extend({
   openAboutModal: function(e) {
     e.preventDefault();
     $("#modal-about").modal('show');
+  },
+
+  changeContinent: function(e) {
+    e.preventDefault();
+
+    var $previousContinent = this.$el.find("[data-continent='"+ globalState.get('continent') +"']");
+    $previousContinent.find(".glyphicon").addClass("invisible");
+
+    var $target = $(e.currentTarget);
+    $target.find(".glyphicon").removeClass("invisible");
   }
 });
 
