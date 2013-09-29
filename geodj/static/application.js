@@ -107,6 +107,13 @@ var PlayerView = Backbone.View.extend({
         ytPlayer.seekTo(parseInt(ui.value));
       }
     });
+
+    setInterval(function() {
+      if(!ytPlayer || !ytPlayer.getCurrentTime) return;
+      _this.$slider.slider("option", {
+        value: ytPlayer.getCurrentTime()
+      });
+    }, 500);
   },
 
   play: function() {
