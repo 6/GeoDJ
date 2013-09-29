@@ -187,18 +187,12 @@ var OptionsView = Backbone.View.extend({
 
   events: {
     "click [rel='keyboard-shortcuts']": "openShortcutsModal",
-    "click [rel='how-it-works']": "openHowItWorksModal",
     "click [rel='about']": "openAboutModal"
   },
 
   openShortcutsModal: function(e) {
     e.preventDefault();
     $('#modal-shortcuts').modal('show');
-  },
-
-  openHowItWorksModal: function(e) {
-    e.preventDefault();
-    $("#modal-how-it-works").modal('show');
   },
 
   openAboutModal: function(e) {
