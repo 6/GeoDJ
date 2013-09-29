@@ -27,7 +27,23 @@ html, body {
   z-index: 1000;
   overflow: hidden;
 }
-
+.youtube-link {
+  position: fixed;
+  z-index: 2000;
+  color: white;
+  bottom: 8px;
+  right: 12px;
+  font-size: 12px;
+  padding: 4px 8px 3px;
+  cursor: pointer;
+  text-shadow: 0 1px 1px black;
+}
+.youtube-link:hover {
+  color: white;
+  text-decoration: none;
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+}
 #yt-player {
   display: block;
   top: -200px;

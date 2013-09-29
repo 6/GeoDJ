@@ -114,6 +114,7 @@ var PlayerView = Backbone.View.extend({
     this.$countryTitle = this.$el.find(".country-title");
     this.$artistTitle = this.$el.find(".artist-title");
     this.$slider = this.$el.find(".seek-slider");
+    this.$youtubeLink = this.$el.find(".youtube-link");
     var _this = this;
     countries.on("change:selected", function() {
       _this.play();
@@ -158,6 +159,7 @@ var PlayerView = Backbone.View.extend({
         value: 0,
         max: video.get('duration')
       });
+      _this.$youtubeLink.attr("href", "http://www.youtube.com/watch?v=" + video.videoId());
 
       ytPlayer.clearVideo();
       ytPlayer.loadVideoById(video.videoId(), 0, "hd720");
