@@ -124,7 +124,7 @@ var PlayerView = Backbone.View.extend({
 
     var _this = this;
     country.fetchVideos(function(artist, videos) {
-      var video = videos.first();
+      var video = videos.shuffle()[0];
       if(!video) window.location.reload();
       _this.$artistTitle.text(artist);
       _this.enableNextButton();
