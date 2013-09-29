@@ -1,5 +1,6 @@
 from gdata.youtube.service import YouTubeService, YouTubeVideoQuery
 from django.utils.encoding import smart_str
+import re
 
 class YoutubeMusic:
     def __init__(self):
@@ -25,10 +26,13 @@ class YoutubeMusic:
 
     def is_valid_entry(self, artist, entry):
         duration = int(entry.media.duration.seconds)
+        title = smart_str(entry.media.title.text).lower()
         if entry.rating is not None and float(entry.rating.average) < 3.5:
             return False
         if duration < (2 * 60) or duration > (9 * 60):
             return False
-        if artist.lower() not in smart_str(entry.media.title.text).lower():
+        if artist.lower() not in title:
+            return False
+        if re.search("\b(concert|cover)\b", title):
             return False
         return True
