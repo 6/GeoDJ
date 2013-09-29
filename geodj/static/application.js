@@ -92,9 +92,20 @@ var PlayerView = Backbone.View.extend({
     this.$nextButton = this.$el.find(".next-button");
     this.$countryTitle = this.$el.find(".country-title");
     this.$artistTitle = this.$el.find(".artist-title");
+    this.$slider = this.$el.find(".seek-slider");
     var _this = this;
     countries.on("change:selected", function() {
       _this.play();
+    });
+
+    this.$slider.slider({
+      range: "min",
+      value: 0,
+      min: 0,
+      max: 1,
+      slide: function(e, ui) {
+        ytPlayer.seekTo(parseInt(ui.value));
+      }
     });
   },
 
@@ -111,6 +122,11 @@ var PlayerView = Backbone.View.extend({
       _this.$artistTitle.text(artist);
       _this.enableNextButton();
       _this.$togglePlayButton.removeClass("glyphicon-play-circle").addClass("glyphicon-pause");
+
+      _this.$slider.slider("option", {
+        value: 0,
+        max: video.get('duration')
+      });
 
       ytPlayer.clearVideo();
       ytPlayer.loadVideoById(video.videoId(), 0, "hd720");
