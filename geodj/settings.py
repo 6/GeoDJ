@@ -80,7 +80,10 @@ STATIC_ROOT = 'staticfiles'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static/'
+if os.environ["APP_ENV"] == "production":
+    STATIC_URL = 'http://geodj.herokuapp.com/static/'
+else:
+    STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
