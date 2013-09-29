@@ -11,8 +11,28 @@ var GlobalState = Backbone.Model.extend({
     this.set('historyIndex', this.get('historyIndex') + 1);
   },
 
+  back: function() {
+    if (!this.hasPreviousHistory()) return;
+    this.set('historyIndex', this.get('historyIndex') - 1);
+    var data = this.get('history')[this.get('historyIndex')];
+    this.set('continent', data.continent, {silent: true});
+    countries.clearSelectedSilent();
+    data.country.set('selected', {silent: true});
+    this.trigger('change:history', data);
+  },
+
+  forward: function() {
+    if (!this.hasNextHistory()) return;
+    this.set('historyIndex', this.get('historyIndex') + 1);
+    var data = this.get('history')[this.get('historyIndex')];
+    this.set('continent', data.continent, {silent: true});
+    countries.clearSelectedSilent();
+    data.country.set('selected', {silent: true});
+    this.trigger('change:history', data);
+  },
+
   hasPreviousHistory: function() {
-    return this.get('historyIndex') && this.get('historyIndex') >= 1;
+    return this.get('historyIndex') >= 1;
   },
 
   hasNextHistory: function() {
@@ -58,11 +78,20 @@ var Countries = Backbone.Collection.extend({
     return this.find(function(country) { return country.get('selected'); });
   },
 
+  clearSelectedSilent: function() {
+    if (this.selected()) this.selected().set('selected', false, {silent: true});
+  },
+
   selectFirstIfNoSelection: function() {
     if(!this.selected()) this.first().set('selected', true);
   },
 
+  selectPreviousModel: function() {
+    globalState.back();
+  },
+
   selectNextModel: function() {
+    if (globalState.hasNextHistory()) return globalState.forward();
     var nextModel = null;
     if (globalState.get('continent') === 'all') {
       nextModel = this.modelAtIndex(this.indexOf(this.selected()) + 1);
@@ -77,7 +106,7 @@ var Countries = Backbone.Collection.extend({
       }
 
     }
-    if (this.selected()) this.selected().set('selected', false, {silent: true});
+    this.clearSelectedSilent();
     nextModel.set('selected', true);
   },
 
@@ -109,12 +138,14 @@ var KeyboardShortcutsView = Backbone.View.extend({
 
   Keys: {
     SPACEBAR: 32,
+    LEFT_ARROW: 37,
     RIGHT_ARROW: 39
   },
 
   onKeyDown: function(e) {
     switch(e.keyCode) {
       case this.Keys.RIGHT_ARROW: playerView.next(); break;
+      case this.Keys.LEFT_ARROW: playerView.previous(); break;
       case this.Keys.SPACEBAR: playerView.togglePlay(); break;
     }
   }
@@ -142,6 +173,9 @@ var PlayerView = Backbone.View.extend({
     globalState.on("change:continent", function() {
       _this.next();
     });
+    globalState.on("change:history", function(historyData) {
+      _this.play(historyData);
+    });
 
     this.$slider.slider({
       range: "min",
@@ -163,13 +197,28 @@ var PlayerView = Backbone.View.extend({
     }, 500);
   },
 
-  play: function() {
+  play: function(historyData) {
+    optionsView.toggleCheckedContinent();
     this.disableNextButton();
     var country = countries.selected();
     this.$countryTitle.text(country.get('fields')['name']);
     this.$artistTitle.html("&mdash;");
 
     var _this = this;
+    if (historyData) {
+      var video = historyData.video;
+      _this.$artistTitle.text(historyData.artist);
+      _this.enableNextButton();
+      _this.$slider.slider("option", {
+        value: 0,
+        max: video.get('duration')
+      });
+      _this.$youtubeLink.attr("href", "http://www.youtube.com/watch?v=" + video.videoId());
+
+      ytPlayer.clearVideo();
+      ytPlayer.loadVideoById(video.videoId(), 0, "hd720");
+      return;
+    }
     country.fetchVideos(function(artist, videos) {
       var video = videos.shuffle()[0];
       if(!video) return _this.handleNoVideos();
@@ -183,7 +232,7 @@ var PlayerView = Backbone.View.extend({
 
       ytPlayer.clearVideo();
       ytPlayer.loadVideoById(video.videoId(), 0, "hd720");
-      globalState.pushHistory({video: video, continent: globalState.get('continent')});
+      globalState.pushHistory({video: video, artist: artist, country: countries.selected(), continent: globalState.get('continent')});
     });
   },
 
@@ -205,6 +254,10 @@ var PlayerView = Backbone.View.extend({
   next: function() {
     if (globalState.get('nextDisabled')) return;
     countries.selectNextModel();
+  },
+
+  previous: function() {
+    countries.selectPreviousModel();
   },
 
   disableNextButton: function() {
@@ -251,22 +304,21 @@ var OptionsView = Backbone.View.extend({
     $("#modal-about").modal('show');
   },
 
+  toggleCheckedContinent: function() {
+    this.$el.find("[data-continent] .glyphicon").addClass("invisible");
+    this.$el.find("[data-continent='"+ globalState.get('continent') +"'] .glyphicon").removeClass("invisible");
+  },
+
   changeContinent: function(e) {
     e.preventDefault();
-
-    var $previousContinent = this.$el.find("[data-continent='"+ globalState.get('continent') +"']");
-    $previousContinent.find(".glyphicon").addClass("invisible");
-
-    var $target = $(e.currentTarget);
-    $target.find(".glyphicon").removeClass("invisible");
-
-    globalState.set('continent', $target.data('continent'));
+    globalState.set('continent', $(e.currentTarget).data('continent'), {previous: false});
   }
 });
 
 window.onYouTubeIframeAPIReady = function() {
   window.ytPlayer = null;
   window.playerView = new PlayerView();
+  window.optionsView = new OptionsView();
 
   var onWindowResize = function() {
     $("#yt-player").height($(window).height() + 400);
@@ -276,7 +328,6 @@ window.onYouTubeIframeAPIReady = function() {
   var onPlayerReady = function() {
     playerView.play();
     new KeyboardShortcutsView();
-    new OptionsView();
     onWindowResize();
     $(window).on('resize', onWindowResize);
 
