@@ -1,3 +1,5 @@
+We created GeoDJ so anyone could listen to music from all over the world. GeoDJ currently has a collection of over 2,000 popular musicians from 200+ countries.
+
 #### up and running locally
 
 Install requirements:
