@@ -31,13 +31,14 @@ html, body {
   background-color: rgba(0, 25, 50, 0.6);
   z-index: 2000;
   height: 88px;
+  padding: 0 24px;
 }
 
 .location-container {
   font-size: 32px;
   float: left;
   line-height: 87px;
-  padding: 0 20px;
+  padding-right: 20px;
 }
 .country-title {
   padding-left: 10px;
@@ -61,5 +62,5 @@ html, body {
 
 .next-song {
   float: right;
-  margin: 20px 20px 0 0;
+  margin-top: 20px;
 }
