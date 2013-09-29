@@ -1,10 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class='player'>
-  <h1><span class='country-title'></span> - <span class='artist-title'></span></h1>
+  <div class='header'>
+    <h1 class='song-info'><span class='country-title'></span> - <span class='artist-title'></span></h1>
+    <button class='toggle-play'>Pause</button>
+    <button class='next-song'>Next</button>
+  </div>
   <div class="yt-iframe-container"><div id="yt-player"></div></div>
-  <button class='toggle-play'>Pause</button>
-  <button class='next-song'>Next</button>
 </div>
 <script>
   $(function() {
