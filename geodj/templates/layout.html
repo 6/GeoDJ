@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!doctype html>
 <html>
   <head>
@@ -5,7 +6,8 @@
     <meta charset="utf-8">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-    {% load staticfiles %}
+    <meta property='og:site_name' content='GeoDJ'>
+    <meta property='og:image' content="{% static 'images/apple-touch-icon.png' %}">
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/jquery-ui.css" type="text/css" media="all" />
     <link rel='stylesheet' href='//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css'>
