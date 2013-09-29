@@ -11,5 +11,5 @@ class Command(BaseCommand):
             csvReader = csv.reader(artistsFile, delimiter=',')
             for row in csvReader:
                 [iso_code, name, mbid] = row
-                country = Country.objects.filter(iso_code=iso_code)[0]
+                country = Country.objects.get(iso_code=iso_code)
                 Artist(name=name, mbid=mbid, country=country).save()
