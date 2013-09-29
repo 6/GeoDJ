@@ -34,3 +34,7 @@ class Artist(models.Model):
 
     def youtube_videos(self):
         return YoutubeMusic().search(smart_str(self.name))
+
+    @staticmethod
+    def by_genre(genre_name):
+        return Artist.objects.filter(genres__name=genre_name)
