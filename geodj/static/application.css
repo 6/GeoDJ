@@ -34,5 +34,15 @@ html, body {
   color: white;
   background-color: rgba(0, 25, 50, 0.6);
   z-index: 2000;
-  height: 90px;
+  height: 88px;
+}
+
+.location-container {
+  font-size: 32px;
+  float: left;
+  line-height: 87px;
+  padding: 0 20px;
+}
+.country-title {
+  padding-left: 10px;
 }
