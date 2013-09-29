@@ -5,6 +5,10 @@ html, body {
   font-family: 'Raleway', sans-serif;
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .unselectable {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -41,6 +45,7 @@ html, body {
   z-index: 2000;
   height: 88px;
   padding: 0 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .location-container {
@@ -68,7 +73,7 @@ html, body {
 
 
 .player-controls {
-  min-width: 400px;
+  min-width: 320px;
   padding: 16px 20px 0;
 }
 .artist-title {
@@ -95,4 +100,43 @@ html, body {
 .next-song {
   float: right;
   margin-top: 20px;
+}
+
+.options {
+  float: right;
+  font-size: 16px;
+  padding: 32px 0 0 20px;
+}
+.options .dropdown-toggle {
+  color: white;
+}
+.options .dropdown-toggle:hover, .options .dropdown-toggle:focus {
+  text-decoration: none;
+}
+.options .dropdown-toggle .caret {
+  border-top: 4px solid white;
+}
+.options .dropdown-menu {
+  top: 86px;
+  left: -40px;
+  width: 172px;
+  background-color: rgba(0, 25, 40, 0.4);
+  border-radius: 0;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-top: none;
+  padding-bottom: 0;
+}
+.options .dropdown-menu > li > a  {
+  color: white;
+  padding: 6px 20px;
+}
+.options .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.options .dropdown-menu .dropdown-header {
+  color: #ccc;
+}
+.options .dropdown-menu .divider {
+  background-color: rgba(255,255,255,0.2);
+  margin: 6px 0;
 }

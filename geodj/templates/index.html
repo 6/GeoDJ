@@ -10,12 +10,30 @@
       <div class='artist-title'>&mdash;</div>
       <div class='seek-slider'></div>
     </div>
+    <div class='options dropdown'>
+      <a class='dropdown-toggle' data-toggle="dropdown" href="#"><span class='glyphicon glyphicon-cog'></span> Options <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li class="dropdown-header">Select a continent:</li>
+        <li><a rel='continent' data-continent='all' href="#"><span class='glyphicon glyphicon-ok'></span> All continents</a></li>
+        <li><a rel='continent' data-continent='Africa' href="#"><span class='glyphicon glyphicon-ok invisible'></span> Africa</a></li>
+        <li><a rel='continent' data-continent='Asia' href="#"><span class='glyphicon glyphicon-ok invisible'></span> Asia</a></li>
+        <li><a rel='continent' data-continent='Europe' href="#"><span class='glyphicon glyphicon-ok invisible'></span> Europe</a></li>
+        <li><a rel='continent' data-continent='North America' href="#"><span class='glyphicon glyphicon-ok invisible'></span> North America</a></li>
+        <li><a rel='continent' data-continent='Oceania' href="#"><span class='glyphicon glyphicon-ok invisible'></span> Oceania</a></li>
+        <li><a rel='continent' data-continent='South America' href="#"><span class='glyphicon glyphicon-ok invisible'></span> South America</a></li>
+        <li class="divider"></li>
+        <li><a href="/how-it-works">How it works</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </div>
     <button class='btn btn-lg btn-primary next-song'>Skip song</button>
   </div>
   <div class="yt-iframe-container"><div id="yt-player"></div></div>
 </div>
 <script>
   $(function() {
+    $('.dropdown-toggle').dropdown();
+
     window.globalState = new GlobalState();
     window.countries = new Countries().reset(JSON.parse("{{ countries | escapejs }}"));
 
