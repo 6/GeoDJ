@@ -25,7 +25,7 @@ class YoutubeMusic:
 
     def is_valid_entry(self, artist, entry):
         duration = int(entry.media.duration.seconds)
-        if entry.rating is not None and float(entry.rating.average) < 3:
+        if entry.rating is not None and float(entry.rating.average) < 3.5:
             return False
         if duration < (2 * 60) or duration > (9 * 60):
             return False
