@@ -113,7 +113,7 @@ var PlayerView = Backbone.View.extend({
     this.disableNextButton();
     var country = countries.selected();
     this.$countryTitle.text(country.get('fields')['name']);
-    this.$artistTitle.text("");
+    this.$artistTitle.html("&mdash;");
 
     var _this = this;
     country.fetchVideos(function(artist, videos) {
