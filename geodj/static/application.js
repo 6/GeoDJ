@@ -1,6 +1,7 @@
 var GlobalState = Backbone.Model.extend({
   defaults: {
-    nextDisabled: false
+    nextDisabled: false,
+    continent: 'all'
   }
 });
 
@@ -27,6 +28,12 @@ var Countries = Backbone.Collection.extend({
     this.on('add remove reset', this.selectFirstIfNoSelection);
   },
 
+  inContinent: function(continent) {
+    return new Countries(countries.filter(function(country) {
+      return country.get('fields')['continent'] === continent;
+    }));
+  },
+
   selected: function() {
     return this.find(function(country) { return country.get('selected'); });
   },
@@ -36,14 +43,28 @@ var Countries = Backbone.Collection.extend({
   },
 
   selectNextModel: function() {
-    this.selectModel(this.indexOf(this.selected()) + 1);
+    var nextModel = null;
+    if (globalState.get('continent') === 'all') {
+      nextModel = this.modelAtIndex(this.indexOf(this.selected()) + 1);
+    }
+    else {
+      var continentCountries = this.inContinent(globalState.get('continent'));
+      if (continentCountries.selected()) {
+        nextModel = continentCountries.modelAtIndex(continentCountries.indexOf(this.selected()) + 1);
+      }
+      else {
+        nextModel = continentCountries.shuffle()[0];
+      }
+
+    }
+    if (this.selected()) this.selected().set('selected', false, {silent: true});
+    nextModel.set('selected', true);
   },
 
-  selectModel: function(index) {
-    if (this.selected()) this.selected().set('selected', false, {silent: true});
+  modelAtIndex: function(index) {
     if (index > this.size() - 1) index = 0;
     if (index < 0) index = this.size() - 1;
-    this.at(index).set('selected', true);
+    return this.at(index);
   }
 });
 
@@ -96,6 +117,9 @@ var PlayerView = Backbone.View.extend({
     var _this = this;
     countries.on("change:selected", function() {
       _this.play();
+    });
+    globalState.on("change:continent", function() {
+      _this.next();
     });
 
     this.$slider.slider({
@@ -210,6 +234,8 @@ var OptionsView = Backbone.View.extend({
 
     var $target = $(e.currentTarget);
     $target.find(".glyphicon").removeClass("invisible");
+
+    globalState.set('continent', $target.data('continent'));
   }
 });
 
