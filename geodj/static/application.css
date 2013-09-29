@@ -76,13 +76,14 @@ html, body {
 }
 .seek-slider {
   width: 100%;
-  height: 12px;
+  height: 10px;
   margin: 8px 0 0;
   border: 1px solid #555;
 }
 .seek-slider .ui-slider-handle {
-  width: 0.8em;
-  margin-left: -.4em;
+  width: 0.6em;
+  top: -.4em;
+  margin-left: -.3em;
   background: rgb(127, 222, 240);
   border: 1px solid #7E9FA2;
   outline: none;
