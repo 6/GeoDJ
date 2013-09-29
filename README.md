@@ -9,6 +9,7 @@ If you haven't already, install postgres and create the database `geodj_developm
 ```
 python manage.py syncdb
 python manage.py import_countries
+python manage.py import_continents
 python manage.py import_artists
 ```
 
