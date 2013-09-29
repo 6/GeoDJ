@@ -23,3 +23,13 @@ python manage.py import_genres
 Install Heroku Toolbelt for foreman: https://toolbelt.heroku.com/
 
 To start the server, run `foreman start`, then go to [http://localhost:5000](http://localhost:5000)
+
+#### acknowledgements
+
+Country data from the following sources:
+- [OpenGeoCode](http://opengeocode.org/download/countrynames.txt) (public domain)
+- [DataHub](http://datahub.io/dataset/countries-continents/resource/aa08c34c-57e8-4e15-bd36-969bee26aba5) (Creative Commons CCZero)
+
+Music data from the following APIs:
+- [MusicBrainz](http://musicbrainz.org/doc/Development/XML_Web_Service/Version_2)
+- [Last.fm](http://www.last.fm/api)
