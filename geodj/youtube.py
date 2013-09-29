@@ -31,6 +31,8 @@ class YoutubeMusic:
         title = smart_str(entry.media.title.text).lower()
         if entry.rating is not None and float(entry.rating.average) < 3.5:
             return False
+        if entry.statistics is None or entry.statistics.view_count < 1000:
+            return False
         if duration < (2 * 60) or duration > (9 * 60):
             return False
         if artist.lower() not in title:
