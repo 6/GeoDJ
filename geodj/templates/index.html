@@ -2,15 +2,17 @@
 {% block content %}
 <div class='player'>
   <h1><span class='country-title'></span> - <span class='artist-title'></span></h1>
+  <div class="yt-iframe-container"><div id="yt-player"></div></div>
   <button class='next-song'>Next</button>
 </div>
 <script>
   $(function() {
     window.globalState = new GlobalState();
     window.countries = new Countries().reset(JSON.parse("{{ countries | escapejs }}"));
-    window.player = new PlayerView();
-    player.play();
-    new KeyboardShortcutsView();
+
+    // Load Youtube iframe API
+    var tag = document.createElement('script'); tag.src = "http://www.youtube.com/iframe_api";
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(tag, s);
   });
 </script>
 {% endblock %}

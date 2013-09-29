@@ -125,5 +125,37 @@ var PlayerView = Backbone.View.extend({
   enableNextButton: function() {
     globalState.set('nextDisabled', false);
     this.$nextButton.prop('disabled', false);
+  },
+
+  onPlayStateChange: function(data) {
+    console.log("state", data);
   }
 });
+
+window.onYouTubeIframeAPIReady = function() {
+  var ytPlayer;
+  window.playerView = new PlayerView();
+
+  onPlayerReady = function() {
+    playerView.play();
+    new KeyboardShortcutsView();
+
+    ytPlayer.addEventListener("onStateChange", function(state) {
+      ytPlayer.onPlayStateChange(state['data']);
+    });
+  };
+
+  ytPlayer = new YT.Player("yt-player", {
+    height: '100%',
+    width: '100%',
+    playerVars: {
+      controls: 0,
+      showinfo: 0 ,
+      modestbranding: 1,
+      wmode: "opaque"
+    },
+    events: {
+      'onReady': onPlayerReady
+    }
+  });
+};
