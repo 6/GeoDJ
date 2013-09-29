@@ -12,10 +12,8 @@ class Command(BaseCommand):
             for row in csvReader:
                 mbid = row[0]
                 genres = row[1:]
-                print mbid
                 artist = Artist.objects.get(mbid=mbid)
                 for genre_name in genres:
-                    print genre_name
                     genre, created = Genre.objects.get_or_create(name=genre_name)
                     artist.genres.add(genre)
                     artist.save()
