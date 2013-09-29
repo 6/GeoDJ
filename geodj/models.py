@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.encoding import smart_str
-import random
 from geodj.youtube import YoutubeMusic
 
 class Country(models.Model):
@@ -10,9 +9,6 @@ class Country(models.Model):
 
     def __unicode__(self):
         return self.name
-
-    def random_artist(self):
-        return random.choice(self.artist_set.all())
 
     def random_artists(self):
         return self.artist_set.all().order_by('?')
