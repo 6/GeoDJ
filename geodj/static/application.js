@@ -84,7 +84,6 @@ var PlayerView = Backbone.View.extend({
   events: {
     'click .toggle-play': 'togglePlay',
     'click .next-song': 'next',
-    'click .yt-iframe-container': 'togglePlay'
   },
 
   initialize: function() {
@@ -128,8 +127,6 @@ var PlayerView = Backbone.View.extend({
       if(!video) window.location.reload();
       _this.$artistTitle.text(artist);
       _this.enableNextButton();
-      _this.$togglePlayButton.removeClass("glyphicon-play-circle").addClass("glyphicon-pause");
-
       _this.$slider.slider("option", {
         value: 0,
         max: video.get('duration')
@@ -143,7 +140,6 @@ var PlayerView = Backbone.View.extend({
   togglePlay: function() {
     if(ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
       ytPlayer.pauseVideo();
-      this.$togglePlayButton.removeClass("glyphicon-pause").addClass("glyphicon-play-circle");
     }
     else {
       ytPlayer.playVideo();
@@ -167,8 +163,16 @@ var PlayerView = Backbone.View.extend({
   },
 
   onPlayStateChange: function(state) {
-    if(state === YT.PlayerState.ENDED) {
-      this.next();
+    switch(state) {
+      case YT.PlayerState.ENDED:
+        this.next();
+        break;
+      case YT.PlayerState.PLAYING:
+        this.$togglePlayButton.removeClass("glyphicon-play-circle").addClass("glyphicon-pause");
+        break;
+      case YT.PlayerState.PAUSED:
+        this.$togglePlayButton.removeClass("glyphicon-pause").addClass("glyphicon-play-circle");
+        break;
     }
   }
 });
