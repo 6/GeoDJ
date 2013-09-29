@@ -56,8 +56,30 @@ html, body {
   padding: 0 8px;
   cursor: pointer;
 }
+
+
+.player-controls {
+  min-width: 400px;
+  padding: 16px 20px 0;
+}
 .artist-title {
-  float: left;
+  font-size: 20px;
+}
+.seek-slider {
+  width: 100%;
+  height: 12px;
+  margin: 8px 0 0;
+  border: 1px solid #555;
+}
+.seek-slider .ui-slider-handle {
+  width: 0.8em;
+  margin-left: -.4em;
+  background: rgb(127, 222, 240);
+  border: 1px solid #7E9FA2;
+  outline: none;
+}
+.seek-slider .ui-widget-header {
+  background: rgb(112, 214, 233);
 }
 
 .next-song {
