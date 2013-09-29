@@ -160,6 +160,9 @@ html, body {
 .modal {
   top: 100px;
 }
+.modal .modal-dialog {
+  width: 540px;
+}
 .modal .modal-header {
   border-bottom: 1px solid #ccc;
 }
