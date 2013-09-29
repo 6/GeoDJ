@@ -109,6 +109,9 @@ var PlayerView = Backbone.View.extend({
       if(!video) window.location.reload();
       _this.$artistTitle.text(artist);
       _this.enableNextButton();
+
+      ytPlayer.clearVideo();
+      ytPlayer.loadVideoById(video.videoId(), 0, "hd720");
     });
   },
 
@@ -133,7 +136,7 @@ var PlayerView = Backbone.View.extend({
 });
 
 window.onYouTubeIframeAPIReady = function() {
-  var ytPlayer;
+  window.ytPlayer = null;
   window.playerView = new PlayerView();
 
   onPlayerReady = function() {
