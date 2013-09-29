@@ -160,6 +160,13 @@ html, body {
 .modal {
   top: 100px;
 }
+.modal .modal-header {
+  border-bottom: 1px solid #ccc;
+}
+.modal .modal-header .close {
+  font-size: 28px;
+  margin-top: -4px;
+}
 .modal .modal-content {
   background-color: rgba(255,255,255,0.87);
 }
