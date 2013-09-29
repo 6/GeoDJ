@@ -17,10 +17,17 @@ class Country(models.Model):
     def with_artists(min=1):
         return Country.objects.annotate(number_of_artists=models.Count('artist')).filter(number_of_artists__gte=min)
 
+class Genre(models.Model):
+    name = models.TextField(unique=True)
+
+    def __unicode__(self):
+        return self.name
+
 class Artist(models.Model):
     name = models.TextField()
     mbid = models.TextField(unique=True)
     country = models.ForeignKey(Country)
+    genres = models.ManyToManyField(Genre)
 
     def __unicode__(self):
         return self.name
