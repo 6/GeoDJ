@@ -130,8 +130,10 @@ var PlayerView = Backbone.View.extend({
     this.$nextButton.prop('disabled', false);
   },
 
-  onPlayStateChange: function(data) {
-    console.log("state", data);
+  onPlayStateChange: function(state) {
+    if(state === YT.PlayerState.ENDED) {
+      this.next();
+    }
   }
 });
 
