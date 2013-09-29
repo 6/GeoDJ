@@ -11,6 +11,7 @@ class YoutubeMusic:
         query.vq = artist
         query.orderby = 'relevance'
         query.racy = 'exclude'
+        query.format = '5'
         query.categories.append("/Music")
         feed = self.service.YouTubeQuery(query)
         results = []
