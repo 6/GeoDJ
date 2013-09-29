@@ -182,6 +182,19 @@ var PlayerView = Backbone.View.extend({
   }
 });
 
+var OptionsView = Backbone.View.extend({
+  el: '.options.dropdown',
+
+  events: {
+    "click [rel='keyboard-shortcuts']": "openShortcutsModal"
+  },
+
+  openShortcutsModal: function(e) {
+    e.preventDefault();
+    $('#modal-shortcuts').modal('show');
+  }
+});
+
 window.onYouTubeIframeAPIReady = function() {
   window.ytPlayer = null;
   window.playerView = new PlayerView();
@@ -194,6 +207,7 @@ window.onYouTubeIframeAPIReady = function() {
   var onPlayerReady = function() {
     playerView.play();
     new KeyboardShortcutsView();
+    new OptionsView();
     onWindowResize();
     $(window).on('resize', onWindowResize);
 

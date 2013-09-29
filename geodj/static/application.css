@@ -140,3 +140,26 @@ html, body {
   background-color: rgba(255,255,255,0.2);
   margin: 6px 0;
 }
+
+.modal {
+  top: 100px;
+}
+#modal-shortcuts li {
+  line-height: 28px;
+}
+#modal-shortcuts  .key {
+  display: inline-block;
+  min-width: 16px;
+  height: 18px;
+  padding: 0 4px;
+  font-size: 12px;
+  line-height: 18px;
+  color: #555;
+  text-align: center;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+#modal-shortcuts  .description {
+  margin-left: 4px;
+ }
