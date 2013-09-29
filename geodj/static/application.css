@@ -144,6 +144,9 @@ html, body {
 .modal {
   top: 100px;
 }
+.modal .modal-content {
+  background-color: rgba(255,255,255,0.87);
+}
 #modal-shortcuts li {
   line-height: 28px;
 }
@@ -154,10 +157,9 @@ html, body {
   padding: 0 4px;
   font-size: 12px;
   line-height: 18px;
-  color: #555;
   text-align: center;
-  background-color: #eee;
-  border: 1px solid #ccc;
+  background-color: #ddd;
+  border: 1px solid #bbb;
   border-radius: 3px;
 }
 #modal-shortcuts  .description {
